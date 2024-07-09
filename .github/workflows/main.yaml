@@ -6,15 +6,15 @@ on:
     branches: [ master ]
 
 env:
-  FRP_SERVER_HOST: "${{ secrets.FRP_SERVER_HOST }}"
-  FRP_SERVER_PORT: "${{ secrets.FRP_SERVER_PORT }}"
-  FRP_TOKEN: "${{ secrets.FRP_TOKEN }}"
-  FRP_SERVER_NAME: "${{ secrets.FRP_SERVER_NAME }}"
-  FRP_SECRET_KEY: "${{ secrets.FRP_SECRET_KEY }}"
-  FRP_LISTEN_PORT: "${{ secrets.FRP_LISTEN_PORT }}"
-  NAMESPACE: "${{ secrets.NAMESPACE }}"
-  USERNAME: "${{ secrets.USERNAME }}"
-  PASSWORD: "${{ secrets.PASSWORD }}"
+  FRP{SERVER_HOST: "`${}`{{ secrets.FRP_SERVER}HOST }}"
+  FRP{SERVER_PORT: "`${}`{{ secrets.FRP_SERVER}PORT }}"
+  FRP{TOKEN: "`${}`{{ secrets.FRP}TOKEN }}"
+  FRP{SERVER_NAME: "`${}`{{ secrets.FRP_SERVER}NAME }}"
+  FRP{SECRET_KEY: "`${}`{{ secrets.FRP_SECRET}KEY }}"
+  FRP{LISTEN_PORT: "`${}`{{ secrets.FRP_LISTEN}PORT }}"
+  NAMESPACE: "`${}`{{ secrets.NAMESPACE }}"
+  USERNAME: "`${}`{{ secrets.USERNAME }}"
+  PASSWORD: "`${}`{{ secrets.PASSWORD }}"
 
 jobs:
   build:
@@ -60,10 +60,10 @@ jobs:
     
     - name: Start Frp
       run: |
-        sed 's/_FRP_SERVER_HOST_/$FRP_SERVER_HOST/g' frp/frpc.toml
-        sed 's/_FRP_SERVER_PORT_/$FRP_SERVER_PORT/g' frp/frpc.toml
-        sed 's/_FRP_TOKEN_/$FRP_TOKEN/g' frp/frpc.toml
-        sed 's/_FRP_SERVER_NAME_/$FRP_SERVER_NAME/g' frp/frpc.toml
-        sed 's/_FRP_SECRET_KEY_/$FRP_SECRET_KEY/g' frp/frpc.toml
-        sed 's/_FRP_LISTEN_PORT_/$FRP_LISTEN_PORT/g' frp/frpc.toml
+        sed 's/{FRP_SERVER_HOST}/`${FRP_SERVER_HOST}`/g' frp/frpc.toml
+        sed 's/{FRP_SERVER_PORT}/`${FRP_SERVER_PORT}`/g' frp/frpc.toml
+        sed 's/{FRP_TOKEN}/`${FRP_TOKEN}`/g' frp/frpc.toml
+        sed 's/{FRP_SERVER_NAME}/`${FRP_SERVER_NAME}`/g' frp/frpc.toml
+        sed 's/{FRP_SECRET_KEY}/`${FRP_SECRET_KEY}`/g' frp/frpc.toml
+        sed 's/{FRP_LISTEN_PORT}/`${FRP_LISTEN_PORT}`/g' frp/frpc.toml
         cat frp/frpc.toml
