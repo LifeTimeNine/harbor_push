@@ -51,9 +51,6 @@ jobs:
 
     - name: Checkout Code
       uses: actions/checkout@v4
-
-    - name: Docker Setup Buildx
-      uses: docker/setup-buildx-action@v3
     
     - name: Start Frp
       run: |
@@ -69,6 +66,8 @@ jobs:
       run: |
         sudo echo "{ \"exec-opts\": [\"native.cgroupdriver=cgroupfs\"], \"cgroup-parent\": \"/actions_job\", \"insecure-registries\": [\"127.0.0.1:${FRP_LISTEN_PORT}\"] }" > ~/.docker/daemon.json
         sudo service docker restart
+    - name: Docker Setup Buildx
+      uses: docker/setup-buildx-action@v3
     - name: Login Docker
       run: docker login -u $USERNAME -p $USERNAMEPASSWORD 127.0.0.1:${FRP_LISTEN_PORT}
 
