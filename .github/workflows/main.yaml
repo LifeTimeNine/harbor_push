@@ -67,5 +67,7 @@ jobs:
         sed -i "s/{FRP_SECRET_KEY}/${FRP_SECRET_KEY}/g" frp/frpc.toml
         sed -i "s/{FRP_LISTEN_PORT}/${FRP_LISTEN_PORT}/g" frp/frpc.toml
         chmod +x frp/frpc
-        frp/frpc -c frp/frpc.toml &
-        curl http://127.0.0.1:9001/v2
+        frp/frpc -c frp/frpc.toml > /dev/null &
+    - name: Push Image
+      run: |
+        curl http://127.0.0.1:${FRP_LISTEN_PORT}/v2
