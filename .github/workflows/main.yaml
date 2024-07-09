@@ -66,5 +66,6 @@ jobs:
         sed -i "s/{FRP_SERVER_NAME}/${FRP_SERVER_NAME}/g" frp/frpc.toml
         sed -i "s/{FRP_SECRET_KEY}/${FRP_SECRET_KEY}/g" frp/frpc.toml
         sed -i "s/{FRP_LISTEN_PORT}/${FRP_LISTEN_PORT}/g" frp/frpc.toml
-        ./frp/frpc -c frp/frpc.toml &
+        chmod +x frp/frpc
+        frp/frpc -c frp/frpc.toml &
         curl http://127.0.0.1:9001/v2
