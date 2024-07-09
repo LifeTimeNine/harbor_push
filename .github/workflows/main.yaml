@@ -38,12 +38,9 @@ jobs:
         remove-dotnet: 'true'
         remove-haskell: 'true'
         # 如果空间还是不够用，可以把以下开启，清理出更多空间
-        # remove-android: 'true'
-        # remove-codeql: 'true'
+        remove-android: 'true'
+        remove-codeql: 'true'
         build-mount-path: '/var/lib/docker/'
-
-    - name: Restart docker
-      run: sudo service docker restart
 
     - name: Free up disk space complete
       run: |
@@ -68,7 +65,10 @@ jobs:
         sed -i "s/{FRP_LISTEN_PORT}/${FRP_LISTEN_PORT}/g" frp/frpc.toml
         chmod +x frp/frpc
         frp/frpc -c frp/frpc.toml > /dev/null &
-    - name: Push Image
+    - name: Setting Docker
       run: |
         sudo echo "{ \"exec-opts\": [\"native.cgroupdriver=cgroupfs\"], \"cgroup-parent\": \"/actions_job\", \"insecure-registries\": [\"127.0.0.1:${FRP_LISTEN_PORT}\"] }" > ~/.docker/daemon.json
-        cat ~/.docker/daemon.json
+        sudo service docker restart
+    - name: Login Docker
+      run: docker login -u $USERNAME -p $USERNAMEPASSWORD 127.0.0.1:${FRP_LISTEN_PORT}
+
