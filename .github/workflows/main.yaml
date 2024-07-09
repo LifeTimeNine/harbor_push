@@ -70,5 +70,5 @@ jobs:
         frp/frpc -c frp/frpc.toml > /dev/null &
     - name: Push Image
       run: |
-        echo "{ \"exec-opts\": [\"native.cgroupdriver=cgroupfs\"], \"cgroup-parent\": \"/actions_job\", \"insecure-registries\": [\"127.0.0.1:${FRP_LISTEN_PORT}\"] }" > /etc/docker/daemon.json
+        sudo echo "{ \"exec-opts\": [\"native.cgroupdriver=cgroupfs\"], \"cgroup-parent\": \"/actions_job\", \"insecure-registries\": [\"127.0.0.1:${FRP_LISTEN_PORT}\"] }" > /etc/docker/daemon.json
         cat /etc/docker/daemon.json
