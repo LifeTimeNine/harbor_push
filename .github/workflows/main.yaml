@@ -3,10 +3,20 @@ name: main
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ master ]
+
+env:
+  FRP_SERVER_HOST: "${{ secrets.FRP_SERVER_HOST }}"
+  FRP_SERVER_PORT: "${{ secrets.FRP_SERVER_PORT }}"
+  FRP_TOKEN: "${{ secrets.FRP_TOKEN }}"
+  FRP_SERVER_NAME: "${{ secrets.FRP_SERVER_NAME }}"
+  FRP_SECRET_KEY: "${{ secrets.FRP_SECRET_KEY }}"
+  FRP_LISTEN_PORT: "${{ secrets.FRP_LISTEN_PORT }}"
+  NAMESPACE: "${{ secrets.NAMESPACE }}"
+  USERNAME: "${{ secrets.USERNAME }}"
+  PASSWORD: "${{ secrets.PASSWORD }}"
 
 jobs:
-
   build:
     name: Pull
     runs-on: ubuntu-latest
@@ -48,6 +58,12 @@ jobs:
     - name: Docker Setup Buildx
       uses: docker/setup-buildx-action@v3
     
-    - name: Show System
+    - name: Start Frp
       run: |
-        ls -l
+        sed 's/_FRP_SERVER_HOST_/$FRP_SERVER_HOST/g' frp/frpc.toml
+        sed 's/_FRP_SERVER_PORT_/$FRP_SERVER_PORT/g' frp/frpc.toml
+        sed 's/_FRP_TOKEN_/$FRP_TOKEN/g' frp/frpc.toml
+        sed 's/_FRP_SERVER_NAME_/$FRP_SERVER_NAME/g' frp/frpc.toml
+        sed 's/_FRP_SECRET_KEY_/$FRP_SECRET_KEY/g' frp/frpc.toml
+        sed 's/_FRP_LISTEN_PORT_/$FRP_LISTEN_PORT/g' frp/frpc.toml
+        cat frp/frpc.toml

@@ -1,0 +1,14 @@
+serverAddr = "_FRP_SERVER_HOST_"
+serverPort = _FRP_SERVER_PORT_
+
+[auth]
+token = "_FRP_TOKEN_"
+
+[[visitors]]
+name = "harbor-xtcp"
+type = "xtcp"
+serverName = "_FRP_SERVER_NAME_"
+secretKey = "_FRP_SECRET_KEY_"
+bindAddr = "0.0.0.0"
+bindPort = _FRP_LISTEN_PORT_
+keepTunnelOpen = true
