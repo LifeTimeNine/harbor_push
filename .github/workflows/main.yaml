@@ -50,4 +50,4 @@ jobs:
     
     - name: Show System
       run: |
-        cat /etc/os-release
+        ls -l
