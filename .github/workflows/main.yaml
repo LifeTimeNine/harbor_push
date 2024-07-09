@@ -6,15 +6,15 @@ on:
     branches: [ master ]
 
 env:
-  FRP_SERVER_HOST: "`${}`{{ secrets.FRP_SERVER_HOST }}"
-  FRP_SERVER_PORT: "`${}`{{ secrets.FRP_SERVER_PORT }}"
-  FRP_TOKEN: "`${}`{{ secrets.FRP_TOKEN }}"
-  FRP_SERVER_NAME: "`${}`{{ secrets.FRP_SERVER_NAME }}"
-  FRP_SECRET_KEY: "`${}`{{ secrets.FRP_SECRET_KEY }}"
-  FRP_LISTEN_PORT: "`${}`{{ secrets.FRP_LISTEN_PORT }}"
-  NAMESPACE: "`${}`{{ secrets.NAMESPACE }}"
-  USERNAME: "`${}`{{ secrets.USERNAME }}"
-  PASSWORD: "`${}`{{ secrets.PASSWORD }}"
+  FRP_SERVER_HOST: "${{ secrets.FRP_SERVER_HOST }}"
+  FRP_SERVER_PORT: "${{ secrets.FRP_SERVER_PORT }}"
+  FRP_TOKEN: "${{ secrets.FRP_TOKEN }}"
+  FRP_SERVER_NAME: "${{ secrets.FRP_SERVER_NAME }}"
+  FRP_SECRET_KEY: "${{ secrets.FRP_SECRET_KEY }}"
+  FRP_LISTEN_PORT: "${{ secrets.FRP_LISTEN_PORT }}"
+  NAMESPACE: "${{ secrets.NAMESPACE }}"
+  USERNAME: "${{ secrets.USERNAME }}"
+  PASSWORD: "${{ secrets.PASSWORD }}"
 
 jobs:
   build:
