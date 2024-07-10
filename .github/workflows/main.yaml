@@ -135,12 +135,10 @@ jobs:
           fi
 
           #如果版本号为空，默认latest
-          if [[ -n "${image_tag}" ]]; then
+          if [[ -z "${image_tag}" ]]; then
             image_tag="latest"
           fi
           
-          # 将@sha256:等字符删除
-          image_name_tag="${image_name_tag%%@*}"
           new_image="$REGISTER/$NAMESPACE/$platform_prefix$name_space_prefix$image_name:$image_tag"
           echo "docker tag $image $new_image"
           docker tag $image $new_image
