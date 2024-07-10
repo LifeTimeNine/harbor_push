@@ -50,7 +50,7 @@ jobs:
 
     - name: Setting Docker
       run: |
-        sudo echo "{ \"insecure-registries\": [\"$REGISTER:$REGISTER_PORT\"] }" > ~/.docker/daemon.json
+        sudo echo "{ \"exec-opts\": [\"native.cgroupdriver=cgroupfs\"], \"cgroup-parent\": \"/actions_job\", \"insecure-registries\": [\"$REGISTER:$REGISTER_PORT\"] }" > ~/.docker/daemon.json
         sudo service docker restart
         cat ~/.docker/daemon.json
 
