@@ -7,7 +7,6 @@ on:
 
 env:
   REGISTER: "${{ secrets.REGISTER }}"
-  REGISTER_PORT: "${{ secrets.REGISTER_PORT }}"
   NAMESPACE: "${{ secrets.NAMESPACE }}"
   USERNAME: "${{ secrets.USERNAME }}"
   PASSWORD: "${{ secrets.PASSWORD }}"
@@ -48,17 +47,14 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Setting Docker
-      run: |
-        sudo echo "{ \"exec-opts\": [\"native.cgroupdriver=cgroupfs\"], \"cgroup-parent\": \"/actions_job\", \"insecure-registries\": [\"$REGISTER:$REGISTER_PORT\"] }" > ~/.docker/daemon.json
-        sudo systemctl daemon-reload
-        sudo service docker restart
+    - name: Restart Docker
+      run: sudo service docker restart
 
     - name: Docker Setup Buildx
       uses: docker/setup-buildx-action@v3
 
     - name: Login Docker
-      run: echo $PASSWORD | docker login -u $USERNAME $REGISTER:$REGISTER_PORT --password-stdin
+      run: echo $PASSWORD | docker login -u $USERNAME $REGISTER --password-stdin
     
     - name: Push Image
       run: |
@@ -141,7 +137,7 @@ jobs:
           
           # 将@sha256:等字符删除
           image_name_tag="${image_name_tag%%@*}"
-          new_image="$REGISTER:$REGISTER_PORT/$NAMESPACE/$platform_prefix$name_space_prefix$image_name_tag"
+          new_image="$REGISTER/$NAMESPACE/$platform_prefix$name_space_prefix$image_name_tag"
           echo "docker tag $image $new_image"
           docker tag $image $new_image
           echo "docker push $new_image"
